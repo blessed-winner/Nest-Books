@@ -111,15 +111,6 @@ password
 
 You can easily extend with authentication, borrowing system, etc.
 
-📮 API Endpoints
-Method	Route	Description
-GET	/books	Get all books
-POST	/books	Create new book
-GET	/books/:id	Get a specific book
-PUT	/books/:id	Update a book
-DELETE	/books/:id	Delete a book
-
-Similar routes apply for /user if enabled.
 
 📌 Best Practices Followed
 .env used to store sensitive configs
