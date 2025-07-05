@@ -40,7 +40,7 @@ src/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/Nest-Books.git
+git clone https://github.com/blessedwinner66/Nest-Books.git
 cd book-management-api
 
 # 2. Install dependencies
@@ -74,6 +74,10 @@ TypeORM - ORM for MySQL
 MySQL - Database
 
 @nestjs/config - Environment management
+
+bcrypt-password hashing and verification
+
+jsonwebtoken-for flexible authentication
 
 DTOs, Exception Filters - Best practices applied
 
