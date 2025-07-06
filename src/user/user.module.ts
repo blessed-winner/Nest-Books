@@ -1,16 +1,24 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './user.entity';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([User]),
-  JwtModule.register({
-    secret:'secret',
-    signOptions:{expiresIn:'1d'}
-  })],
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    ConfigModule, // Required to use ConfigService below
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '1d' },
+      }),
+    }),
+  ],
   controllers: [UserController],
   providers: [UserService],
 })
