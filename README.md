@@ -38,10 +38,10 @@ src/
 
 ## 📦 Installation
 
-```bash
+
 # 1. Clone the repository
 git clone https://github.com/blessedwinner66/Nest-Books.git
-cd book-management-api
+cd nest-books
 
 # 2. Install dependencies
 npm install
@@ -64,6 +64,7 @@ DB_USERNAME=root
 DB_PASSWORD=yourPassword
 DB_NAME=books_auth
 PORT=3000
+JWT_SECRET = your_jwt_secret
 ✅ @nestjs/config is used to load these variables globally.
 
 🛠️ Technologies Used
