@@ -9,7 +9,7 @@ import { UserService } from './user.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    ConfigModule, // Required to use ConfigService below
+    ConfigModule, 
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

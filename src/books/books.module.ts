@@ -3,9 +3,22 @@ import { BooksService } from './books.service';
 import { BooksController } from './books.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './entities/book.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Book])],
+  imports:[
+        ConfigModule, 
+        JwtModule.registerAsync({
+          imports: [ConfigModule],
+          inject: [ConfigService],
+          useFactory: async (configService: ConfigService) => ({
+            secret: configService.get<string>('JWT_SECRET'),
+            signOptions: { expiresIn: '1d' },
+          }),
+        }),
+    TypeOrmModule.forFeature([Book]),
+  ],
   controllers: [BooksController],
   providers: [BooksService],
 })

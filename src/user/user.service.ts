@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt'
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AdminCreateUserDto } from './dto/admin-create-user.dto';
 
 @Injectable()
 export class UserService {
@@ -19,6 +20,13 @@ export class UserService {
         const user = await this.userRepository.create(createUserDto)
         await this.userRepository.save(user)
         return user
+    }
+    async adminCreate(email:string,dto:AdminCreateUserDto):Promise<User>{
+          const salt = await bcrypt.genSalt()
+          dto.password = await bcrypt.hash(dto.password,salt)
+          const user = await this.userRepository.create(dto)
+          await this.userRepository.save(user)
+          return user
     }
 
     async update(id:number,updateUserDto:UpdateUserDto):Promise<User>{

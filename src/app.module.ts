@@ -7,6 +7,7 @@ import { User } from './user/user.entity';
 import { BooksModule } from './books/books.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { SeederService } from './seeder/seeder.service';
 
 @Module({
   imports: [
@@ -33,6 +34,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
    UserModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,SeederService],
 })
 export class AppModule {}
