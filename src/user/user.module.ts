@@ -5,10 +5,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './user.entity';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
+import { Borrow } from 'src/borrow/entities/borrow.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User,Borrow]),
     ConfigModule, 
     JwtModule.registerAsync({
       imports: [ConfigModule],

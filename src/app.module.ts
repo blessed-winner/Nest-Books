@@ -7,7 +7,9 @@ import { User } from './user/user.entity';
 import { BooksModule } from './books/books.module';
 import { UserModule } from './user/user.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { SeederService } from './seeder/seeder.service';
+//import { SeederService } from './seeder/seeder.service';
+import { BorrowModule } from './borrow/borrow.module';
+import { Borrow } from './borrow/entities/borrow.entity';
 
 @Module({
   imports: [
@@ -26,14 +28,15 @@ import { SeederService } from './seeder/seeder.service';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_NAME'),
-        entities: [Book, User],
+        entities: [Book, User, Borrow],
         synchronize: true,
       }),
     }),
    BooksModule,
-   UserModule
+   UserModule,
+   BorrowModule
   ],
   controllers: [AppController],
-  providers: [AppService,SeederService],
+  providers: [AppService,/*SeederService*/],
 })
 export class AppModule {}

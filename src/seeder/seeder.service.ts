@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+/*import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { Role, User } from '../user/user.entity';
 import * as bcrypt from 'bcrypt';
@@ -23,5 +23,5 @@ export class SeederService {
     await userRepo.save(admin);
     console.log('Admin user seeded');
   }
-}
+}*/
 

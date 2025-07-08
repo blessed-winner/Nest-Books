@@ -6,12 +6,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt'
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AdminCreateUserDto } from './dto/admin-create-user.dto';
+import { Borrow } from 'src/borrow/entities/borrow.entity';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(User)
         private readonly userRepository:Repository<User>,
+         @InjectRepository(Borrow)
+          private readonly borrowRepo:Repository<Borrow>
     ){}
 
     async create(email:string,createUserDto:CreateUserDto):Promise<User>{
@@ -44,5 +47,13 @@ export class UserService {
         if(!user) throw new NotFoundException('User Not Found')
         return user
     }
+
+        async getBorrowHistory(userId:number){
+     return await this.borrowRepo.find({
+         where:{user:{id:userId}},
+         relations:['book'],
+         order:{borrowedAt:'DESC'}
+    })
+  }
 }
 

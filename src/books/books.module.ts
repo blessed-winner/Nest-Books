@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Book } from './entities/book.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { Borrow } from 'src/borrow/entities/borrow.entity';
 
 @Module({
   imports:[
@@ -17,7 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
             signOptions: { expiresIn: '1d' },
           }),
         }),
-    TypeOrmModule.forFeature([Book]),
+    TypeOrmModule.forFeature([Book,Borrow]),
   ],
   controllers: [BooksController],
   providers: [BooksService],

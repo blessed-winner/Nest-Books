@@ -14,7 +14,7 @@ export class BooksController {
   constructor(private readonly booksService: BooksService) {}
    
   @UseGuards(JwtAuthGuard,RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN,Role.LIBRARIAN)
   @Post()
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
@@ -32,7 +32,7 @@ export class BooksController {
   }
 
   @UseGuards(JwtAuthGuard,RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN,Role.LIBRARIAN)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(+id, updateBookDto);
@@ -43,5 +43,11 @@ export class BooksController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.booksService.remove(+id);
+  }
+  
+  @UseGuards(JwtAuthGuard)
+  @Get(':id/history')
+  findByBook(@Param('id') id:string){
+    return this.booksService.getBorrowHistory(+id)
   }
 }

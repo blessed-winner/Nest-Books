@@ -1,6 +1,6 @@
 # 📚 Nest-Books (Book Management API)
 
-A modular, scalable **Book Management System** built with [NestJS](https://nestjs.com/), **TypeORM**, and **MySQL**. This API supports user authentication, role-based access, and full CRUD operations for books and users.
+A modular, scalable **Book Management System** built with [NestJS](https://nestjs.com/), **TypeORM**, and **MySQL**. This API supports user authentication, granular role-based access, and full CRUD operations for books and users.
 
 ---
 
@@ -8,12 +8,13 @@ A modular, scalable **Book Management System** built with [NestJS](https://nestj
 
 - 🔁 Full Book CRUD (Create, Read, Update, Delete)
 - 👤 User registration, login, and role management (User, Librarian, Admin)
-- 🔐 JWT Authentication & Role-based Authorization
+- 🔐 JWT Authentication & **Granular Role-based Authorization** (per-endpoint)
 - ⚙️ Environment variables via `.env`
 - 💾 MySQL database with TypeORM
 - 📦 Modular NestJS architecture
 - 🛡️ Exception filters and DTO validation
 - 🧪 Ready for testing and extension
+-- Borrowing history
 
 ---
 
@@ -62,7 +63,7 @@ PORT=3000
 JWT_SECRET=your_jwt_secret
 ```
 4. **Run the app**
-   
+    
 npm run start:dev
 ```
 
@@ -84,7 +85,7 @@ npm run start:dev
 - `TypeOrmModule.forRootAsync()` reads DB config from `ConfigService`.
 - Book and User entities are mapped to DB tables.
 - Modular design (BooksModule, UserModule) for scalability.
-- JWT authentication and role-based guards for secure endpoints.
+- JWT authentication and **granular, per-endpoint role-based guards** for secure endpoints.
 
 ---
 
@@ -111,11 +112,11 @@ npm run start:dev
 ## 🔑 Authentication & Authorization
 - **Signup/Login**: Users can register and log in. Passwords are hashed with bcrypt.
 - **JWT**: On login, a JWT is issued and stored in an HTTP-only cookie.
-- **Role-based Access**: Admins can create users with specific roles. Protected endpoints require valid JWT and appropriate role.
+- **Granular Role-based Access**: Each book endpoint is protected according to user role (User, Librarian, Admin). See the table below for details.
 
 ---
 
-## 📚 API Endpoints
+## 📚 API Endpoints & Role Access
 
 ### Auth/User
 | Method | Endpoint         | Description                       | Auth Required | Role        |
@@ -125,14 +126,14 @@ npm run start:dev
 | POST   | /auth/create     | Admin creates a new user          | Yes          | ADMIN       |
 | PATCH  | /auth/profile    | Update user profile               | Yes          | User/Admin  |
 
-### Books
-| Method | Endpoint      | Description                | Auth Required |
-|--------|---------------|----------------------------|---------------|
-| POST   | /books        | Create a new book          | Yes           |
-| GET    | /books        | List all books             | No            |
-| GET    | /books/:id    | Get book by ID             | Yes           |
-| PATCH  | /books/:id    | Update book by ID          | Yes           |
-| DELETE | /books/:id    | Delete book by ID          | Yes           |
+### Books (Granular Role-Based Access)
+| Method | Endpoint      | Description         | User | Librarian | Admin |
+|--------|--------------|---------------------|------|-----------|-------|
+| POST   | /books       | Create a new book   | ❌   | ✅        | ✅    |
+| GET    | /books       | List all books      | ✅   | ✅        | ✅    |
+| GET    | /books/:id   | Get book by ID      | ✅   | ✅        | ✅    |
+| PATCH  | /books/:id   | Update book by ID   | ❌   | ✅        | ✅    |
+| DELETE | /books/:id   | Delete book by ID   | ❌   | ❌        | ✅    |
 
 ---
 
@@ -144,11 +145,10 @@ npm run start:dev
 ---
 
 ## 🧪 Testing
-- Run unit and e2e tests:
-
-  npm run test
-  npm run test:e2e
-  ```
+ 
+npm run test
+npm run test:e2e
+```
 
 ---
 
@@ -161,8 +161,7 @@ npm run start:dev
 ---
 
 ## ✅ Future Improvements
-- Role-based access control (more granular)
-- Borrowing history
+- Even more granular permissions (e.g., per-resource or per-action)
 - Swagger/OpenAPI documentation
 - More user roles and permissions
 

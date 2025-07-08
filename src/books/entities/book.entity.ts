@@ -1,4 +1,5 @@
-import { Column, PrimaryGeneratedColumn, Entity } from "typeorm"
+import { Borrow } from "src/borrow/entities/borrow.entity"
+import { Column, PrimaryGeneratedColumn, Entity, OneToMany } from "typeorm"
 
 @Entity()
 export class Book {
@@ -10,4 +11,7 @@ export class Book {
 
    @Column()
    author:string
+
+   @OneToMany(()=>Borrow,borrow=>borrow.book)
+   borrowHistory:Borrow[]
 }

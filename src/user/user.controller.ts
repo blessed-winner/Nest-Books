@@ -52,4 +52,10 @@ export class UserController {
     async modify(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto){
         await this.userService.update(+id,updateUserDto)
     }
+
+    @UseGuards(JwtAuthGuard)
+  @Get(':id/history')
+  findByUser(@Param('id') id:string){
+    return this.userService.getBorrowHistory(+id)
+  }
 }

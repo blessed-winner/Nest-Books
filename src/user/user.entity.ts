@@ -1,5 +1,6 @@
 
-import { Column, PrimaryGeneratedColumn, Entity } from "typeorm"
+import { Borrow } from "src/borrow/entities/borrow.entity"
+import { Column, PrimaryGeneratedColumn, Entity, OneToMany } from "typeorm"
 
 export enum Role {
   USER = 'user',
@@ -27,4 +28,7 @@ export class User {
          default:Role.USER
     })
     role:Role
+
+    @OneToMany(()=>Borrow,borrow=> borrow.user)
+    borrowedBooks:Borrow[]
 }
