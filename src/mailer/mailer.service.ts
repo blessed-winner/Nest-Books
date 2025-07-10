@@ -1,12 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable,OnModuleInit } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class MailerService {
-  private transporter;
-  constructor(private readonly configService: ConfigService) {
-    const host = this.configService.get<string>('SMTP_HOST');
+export class MailerService implements OnModuleInit {
+  private transporter:nodemailer.Transporter;
+
+  constructor(private readonly configService: ConfigService){}
+
+  onModuleInit() {
+     const host = this.configService.get<string>('SMTP_HOST');
     const port = this.configService.get<number>('SMTP_PORT');
     const user = this.configService.get<string>('SMTP_USER');
     const pass = this.configService.get<string>('SMTP_PASS');
@@ -41,6 +44,7 @@ export class MailerService {
         });
     }
   }
+   
 
   async sendMail(options: {
     to: string;

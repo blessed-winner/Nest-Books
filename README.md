@@ -54,7 +54,7 @@ src/
 
 1. **Clone the repository**
    ```bash
-git clone https://github.com/blessedwinner66/Nest-Books.git
+git clone https://github.com/blessed-winner/Nest-Books.git
 cd nest-books
 ```
 2. **Install dependencies**
