@@ -9,17 +9,18 @@ import { User } from 'src/user/user.entity';
 import { Book } from 'src/books/entities/book.entity';
 
 @Module({
-  imports:[ 
-        ConfigModule, 
-          JwtModule.registerAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
-            useFactory: async (configService: ConfigService) => ({
-              secret: configService.get<string>('JWT_SECRET'),
-              signOptions: { expiresIn: '1d' },
-            }),
-          }),
-      TypeOrmModule.forFeature([Borrow,User,Book])],
+  imports: [
+    ConfigModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '1d' },
+      }),
+    }),
+    TypeOrmModule.forFeature([Borrow, User, Book]),
+  ],
   controllers: [BorrowController],
   providers: [BorrowService],
 })

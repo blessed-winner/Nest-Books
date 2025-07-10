@@ -1,17 +1,17 @@
-import { Borrow } from "src/borrow/entities/borrow.entity"
-import { Column, PrimaryGeneratedColumn, Entity, OneToMany } from "typeorm"
+import { Borrow } from 'src/borrow/entities/borrow.entity';
+import { Column, PrimaryGeneratedColumn, Entity, OneToMany } from 'typeorm';
 
 @Entity()
 export class Book {
-   @PrimaryGeneratedColumn()
-   id:number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-   @Column({unique:true})
-   title:string
+  @Column({ unique: true })
+  title: string;
 
-   @Column()
-   author:string
+  @Column()
+  author: string;
 
-   @OneToMany(()=>Borrow,borrow=>borrow.book)
-   borrowHistory:Borrow[]
+  @OneToMany(() => Borrow, (borrow) => borrow.book)
+  borrowHistory: Borrow[];
 }

@@ -1,4 +1,4 @@
-/*import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { Role, User } from '../user/user.entity';
 import * as bcrypt from 'bcrypt';
@@ -18,10 +18,10 @@ export class SeederService {
       email: 'admin@example.com',
       password: await bcrypt.hash('StrongPassword123', 10),
       role: Role.ADMIN,
+      isVerified: true,
     });
 
     await userRepo.save(admin);
     console.log('Admin user seeded');
   }
-}*/
-
+}

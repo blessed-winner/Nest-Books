@@ -9,14 +9,14 @@ import {
 import { QueryFailedError } from 'typeorm';
 import { Response } from 'express';
 @Catch(QueryFailedError)
-export class TypeOrmExceptionFilter implements ExceptionFilter{
-    catch(exception:QueryFailedError,host:ArgumentsHost){
-        const ctx = host.switchToHttp()
-        const res = ctx.getResponse<Response>()
-        const error:any = exception
-         console.error('[DB ERROR]', error.code, error.message)
-         switch(error.code){
-            case 'ER_DUP_ENTRY':
+export class TypeOrmExceptionFilter implements ExceptionFilter {
+  catch(exception: QueryFailedError, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const res = ctx.getResponse<Response>();
+    const error: any = exception;
+    console.error('[DB ERROR]', error.code, error.message);
+    switch (error.code) {
+      case 'ER_DUP_ENTRY':
         res
           .status(409)
           .json({ message: 'Duplicate entry. This value must be unique.' });
@@ -39,6 +39,5 @@ export class TypeOrmExceptionFilter implements ExceptionFilter{
           .status(500)
           .json({ message: 'Internal server error', detail: error.message });
     }
-         }
-
-    }
+  }
+}

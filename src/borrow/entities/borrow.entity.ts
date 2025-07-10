@@ -1,21 +1,27 @@
-import { Book } from "src/books/entities/book.entity";
-import { User } from "src/user/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Book } from 'src/books/entities/book.entity';
+import { User } from 'src/user/user.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Borrow {
-    @PrimaryGeneratedColumn()
-    id:number
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @ManyToOne(()=>Book,book=>book.borrowHistory)
-    book:Book
+  @ManyToOne(() => Book, (book) => book.borrowHistory)
+  book: Book;
 
-    @ManyToOne(()=>User,user=>user.borrowedBooks)
-    user:User
+  @ManyToOne(() => User, (user) => user.borrowedBooks)
+  user: User;
 
-    @Column()
-    borrowedAt:Date
+  @CreateDateColumn()
+  borrowedAt: Date;
 
-    @Column({nullable:true})
-    returnedAt:Date
+  @Column({ nullable: true })
+  returnedAt: Date;
 }

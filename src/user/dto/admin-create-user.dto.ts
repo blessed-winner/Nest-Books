@@ -1,4 +1,10 @@
-import { IsString, IsEmail, MinLength, IsEnum } from 'class-validator';
+import {
+  IsString,
+  IsEmail,
+  MinLength,
+  IsEnum,
+  IsBoolean,
+} from 'class-validator';
 import { Role } from '../../user/user.entity';
 
 export class AdminCreateUserDto {
@@ -14,4 +20,7 @@ export class AdminCreateUserDto {
 
   @IsEnum(Role)
   role: Role;
+
+  @IsBoolean()
+  isVerified: boolean;
 }

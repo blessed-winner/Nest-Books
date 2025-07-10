@@ -6,11 +6,12 @@ import { User } from './user.entity';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { Borrow } from 'src/borrow/entities/borrow.entity';
+import { MailerModule } from 'src/mailer/mailer.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User,Borrow]),
-    ConfigModule, 
+    TypeOrmModule.forFeature([User, Borrow]),
+    ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -19,6 +20,7 @@ import { Borrow } from 'src/borrow/entities/borrow.entity';
         signOptions: { expiresIn: '1d' },
       }),
     }),
+    MailerModule,
   ],
   controllers: [UserController],
   providers: [UserService],

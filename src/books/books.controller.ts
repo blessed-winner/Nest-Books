@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseFilters, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseFilters,
+  UseGuards,
+} from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -12,9 +22,9 @@ import { Role } from 'src/user/user.entity';
 @Controller('books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
-   
-  @UseGuards(JwtAuthGuard,RolesGuard)
-  @Roles(Role.ADMIN,Role.LIBRARIAN)
+
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.LIBRARIAN)
   @Post()
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
@@ -31,23 +41,23 @@ export class BooksController {
     return this.booksService.findOne(+id);
   }
 
-  @UseGuards(JwtAuthGuard,RolesGuard)
-  @Roles(Role.ADMIN,Role.LIBRARIAN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.LIBRARIAN)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(+id, updateBookDto);
   }
 
-  @UseGuards(JwtAuthGuard,RolesGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.booksService.remove(+id);
   }
-  
+
   @UseGuards(JwtAuthGuard)
   @Get(':id/history')
-  findByBook(@Param('id') id:string){
-    return this.booksService.getBorrowHistory(+id)
+  findByBook(@Param('id') id: string) {
+    return this.booksService.getBorrowHistory(+id);
   }
 }
