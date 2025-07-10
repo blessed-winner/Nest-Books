@@ -251,7 +251,7 @@ npm run start:dev
 
 ## 🧑 Author
 IMPANO Blessed Winner  
-GitHub: [@blessedwinner66](https://github.com/blessedwinner66)  
+GitHub: [@blessed-winner](https://github.com/blessed-winner)  
 LinkedIn: IMPANO Blessed Winner
 
 ---
