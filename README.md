@@ -246,10 +246,6 @@ npm run start:dev
 
 ## ✅ Future Improvements
 - Swagger/OpenAPI documentation
-- More granular permissions (per-resource or per-action)
-- Email templates and localization
-- User activity logging and audit trails
-- More user roles and permissions
 
 ---
 
